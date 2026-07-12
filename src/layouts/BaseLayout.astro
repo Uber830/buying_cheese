@@ -1,0 +1,103 @@
+---
+import '@/styles/global.css';
+import Navbar from '@/components/layout/Navbar.astro';
+import Footer from '@/components/layout/Footer.astro';
+import { SITE } from '@/lib/site';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+};
+
+const {
+  title = `${SITE.name} | ${SITE.tagline}`,
+  description = SITE.description,
+  image = '/og-image.svg',
+  canonical,
+} = Astro.props;
+
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? SITE.url).toString();
+const ogImage = new URL(image, Astro.site ?? SITE.url).toString();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+  telephone: SITE.phoneDisplay,
+  email: SITE.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mosquera',
+    addressRegion: 'Cundinamarca',
+    addressCountry: 'CO',
+  },
+  sameAs: [SITE.social.facebook, SITE.social.instagram],
+};
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" title="Quesos La Colina" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:site_name" content={SITE.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-full focus:bg-cheese-500 focus:px-4 focus:py-2 focus:text-espresso-900"
+    >
+      Saltar al contenido
+    </a>
+
+    <Navbar />
+
+    <main id="main" class="pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <style is:global>
+      html {
+        scroll-padding-top: 5rem;
+      }
+    </style>
+
+    <script>
+      import '@/scripts/reveal.ts';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { SITE } from '@/lib/site';
+import { getFeaturedProducts } from '@/lib/products';
+import FeaturedProducts from '@/components/hero/FeaturedProducts.astro';
+
+const featured = await getFeaturedProducts();
+---
+
+<section id="inicio" class="relative overflow-hidden">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute -top-32 right-[-10%] h-[36rem] w-[36rem] rounded-full bg-cheese-300/40 blur-3xl"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute -bottom-40 left-[-10%] h-[30rem] w-[30rem] rounded-full bg-meadow-200/50 blur-3xl"
+  >
+  </div>
+
+  <Container class="relative grid items-center gap-12 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24">
+    <div>
+      <span
+        data-reveal="fade-up"
+        style="--reveal-delay: 0ms"
+        class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-cheddar shadow-card"
+      >
+        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-cheddar"></span>
+        Hecho en Funza, Cundinamarca
+      </span>
+
+      <h1
+        data-reveal="fade-up"
+        style="--reveal-delay: 100ms"
+        class="mt-6 text-balance text-5xl font-extrabold leading-[1.02] text-espresso-900 sm:text-6xl md:text-7xl"
+      >
+        Quesos frescos
+        <span class="block font-script text-cheddar">de la sabana</span>
+        <span class="block text-espresso-900">a tu mesa</span>
+      </h1>
+
+      <p
+        data-reveal="fade-up"
+        style="--reveal-delay: 220ms"
+        class="mt-6 max-w-xl text-balance text-lg leading-relaxed text-espresso-700"
+      >
+        Fábrica artesanal de <strong>quesos</strong> y <strong>yogures</strong> en
+        Funza, Cundinamarca. Tradición lechera del altiplano cundinamarqués
+        con productos frescos, sin conservantes y hechos con leche local.
+      </p>
+
+      <ul
+        data-reveal="fade-up"
+        style="--reveal-delay: 300ms"
+        class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-espresso-700"
+      >
+        <li class="flex items-center gap-2">
+          <span class="text-cheddar">✓</span> Sin conservantes
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-cheddar">✓</span> Producción diaria
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-cheddar">✓</span> Pedidos por WhatsApp
+        </li>
+      </ul>
+
+      <div
+        data-reveal="fade-up"
+        style="--reveal-delay: 360ms"
+        class="mt-8 flex flex-wrap items-center gap-4"
+      >
+        <a href="#productos" class="btn-primary text-base">
+          Ver catálogo
+          <span aria-hidden="true">→</span>
+        </a>
+        <a
+          href={`https://wa.me/${SITE.phoneRaw.replace('+', '')}?text=${encodeURIComponent('Hola Quesos La Colina, me interesa conocer sus productos.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary text-base"
+        >
+          Pedir por WhatsApp
+        </a>
+      </div>
+
+      <div
+        data-reveal="fade-up"
+        style="--reveal-delay: 440ms"
+        class="mt-10 inline-flex items-center gap-3 rounded-2xl border border-cheddar/20 bg-cheese-100/70 px-4 py-3 text-sm text-espresso-900"
+      >
+        <span aria-hidden="true" class="text-xl">🚚</span>
+        <span>
+          <strong>Domicilio gratis</strong> en pedidos superiores a{' '}
+          <strong>
+            {new Intl.NumberFormat('es-CO', {
+              style: 'currency',
+              currency: SITE.currency,
+              maximumFractionDigits: 0,
+            }).format(SITE.freeShippingFromCop)}
+          </strong>
+        </span>
+      </div>
+    </div>
+
+    {featured.length > 0 && (
+      <div class="flex justify-center md:justify-end">
+        <FeaturedProducts featured={featured} />
+      </div>
+    )}
+  </Container>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-open-product]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-open-product');
+      if (!id) return;
+      const target = document.getElementById('productos');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.dispatchEvent(new CustomEvent('lacolina:open-product', { detail: { id } }));
+    });
+  });
+</script>

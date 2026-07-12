@@ -1,0 +1,96 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+import { SITE } from '@/lib/site';
+---
+
+<section id="contacto" class="py-20 sm:py-28">
+  <Container>
+    <SectionTitle
+      eyebrow="Visítanos"
+      title="Te esperamos en nuestra fábrica"
+      subtitle="Pasa por nuestra planta en Funza, Cundinamarca. Te atenderemos personalmente para que conozcas nuestro proceso artesanal."
+    />
+
+    <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
+      <aside
+        data-reveal="slide-left"
+        style="--reveal-delay: 0ms"
+        class="grid gap-4 content-start"
+      >
+        <div class="rounded-3xl bg-espresso-900 p-6 text-cream-100 shadow-card">
+          <h3 class="font-display text-base font-bold uppercase tracking-[0.18em] text-cheese-300">
+            Fábrica
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-cream-100/90">
+            {SITE.address}
+          </p>
+
+          <h3 class="mt-5 font-display text-base font-bold uppercase tracking-[0.18em] text-cheese-300">
+            Teléfono
+          </h3>
+          <a
+            href={`tel:${SITE.phoneRaw}`}
+            class="mt-2 block text-sm text-cream-100/90 transition hover:text-cheese-300"
+          >
+            Cel. {SITE.phoneDisplay}
+          </a>
+
+          <h3 class="mt-5 font-display text-base font-bold uppercase tracking-[0.18em] text-cheese-300">
+            Correo
+          </h3>
+          <a
+            href={`mailto:${SITE.email}`}
+            class="mt-2 block text-sm text-cream-100/90 transition hover:text-cheese-300"
+          >
+            {SITE.email}
+          </a>
+        </div>
+
+        <a
+          href={`https://wa.me/${SITE.phoneRaw.replace('+', '')}?text=${encodeURIComponent('Hola Quesos La Colina, quiero hacer un pedido.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary w-full justify-center"
+        >
+          <span aria-hidden="true">💬</span>
+          Pedir por WhatsApp
+        </a>
+
+        <a
+          href={SITE.mapsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-secondary w-full justify-center"
+        >
+          <span aria-hidden="true">📍</span>
+          Abrir en Google Maps
+        </a>
+      </aside>
+
+      <div
+        data-reveal="fade-up"
+        style="--reveal-delay: 120ms"
+        class="relative"
+      >
+        <div
+          aria-hidden="true"
+          class="absolute -inset-3 -z-10 rotate-1 rounded-[2rem] bg-cheese-200"
+        >
+        </div>
+        <div class="overflow-hidden rounded-[1.5rem] bg-white shadow-card">
+          <iframe
+            src={SITE.mapsEmbedUrl}
+            title="Ubicación de Quesos La Colina en Funza"
+            width="100%"
+            height="480"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            class="block w-full"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

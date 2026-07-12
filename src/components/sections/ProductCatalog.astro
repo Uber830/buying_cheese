@@ -1,0 +1,20 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+import CategoryFilter from '@/components/products/CategoryFilter.tsx';
+import CartFab from '@/components/cart/CartFab.tsx';
+---
+
+<section id="productos" class="bg-cream-100 py-20 sm:py-28">
+  <Container>
+    <SectionTitle
+      eyebrow="Catálogo"
+      title="Quesos frescos y yogurt, directo de la sabana"
+      subtitle="Cada producto es elaborado en nuestra planta de Mosquera. Explora las categorías, descubre los detalles y arma tu pedido por WhatsApp."
+    />
+
+    <CategoryFilter client:load />
+  </Container>
+</section>
+
+<CartFab client:load />

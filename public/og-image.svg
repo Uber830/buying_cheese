@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff3dc" />
+      <stop offset="100%" stop-color="#fbd791" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <g transform="translate(96,120)">
+    <rect width="160" height="160" rx="36" fill="#F2C94C" />
+    <text x="50%" y="62%" text-anchor="middle" font-size="108"
+          font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji"
+          font-weight="700">🧀</text>
+  </g>
+  <g font-family="'Plus Jakarta Sans', system-ui, sans-serif" fill="#2d2018">
+    <text x="296" y="220" font-size="64" font-weight="800">Quesos La Colina</text>
+    <text x="296" y="280" font-size="34" font-weight="600" fill="#735a47">
+      Quesos frescos y yogur artesanal
+    </text>
+    <text x="296" y="332" font-size="28" fill="#4a362a">
+      Funza, Cundinamarca · Colombia
+    </text>
+    <text x="296" y="500" font-size="26" font-weight="700" fill="#e89b1a">
+      Pedidos por WhatsApp
+    </text>
+    <text x="296" y="540" font-size="22" fill="#735a47">
+      Producción diaria · Sin conservantes · Leche local
+    </text>
+  </g>
+</svg>
