@@ -1,0 +1,137 @@
+---
+import type { Product } from '@/types/product';
+import { SITE } from '@/lib/site';
+import FeaturedBadge from './FeaturedBadge.astro';
+
+type Variant = 'hero' | 'compact';
+
+type Props = {
+  product: Product;
+  variant?: Variant;
+  loading?: 'eager' | 'lazy';
+};
+
+const { product, variant = 'compact', loading = 'lazy' } = Astro.props;
+
+function formatPrice(value: number | null): string {
+  if (value == null) return '';
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: SITE.currency,
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function unitPhrase(unit: Product['unit_label']): string {
+  return unit === 'kg' ? '/ kg' : unit === 'lb' ? '/ lb' : '/ und';
+}
+
+const priceText = formatPrice(product.price);
+const unitText = unitPhrase(product.unit_label);
+const isHero = variant === 'hero';
+---
+
+{
+  isHero ? (
+    <article class="featured-card group relative isolate overflow-hidden rounded-3xl bg-cream-100 shadow-cheese ring-1 ring-espresso-900/5">
+      <button
+        type="button"
+        data-open-product={product.id}
+        class="block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cheddar focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        aria-label={`Ver ${product.name}`}
+      >
+        <div class="relative aspect-[5/4] overflow-hidden bg-cream-200">
+          <img
+            src={product.image_url}
+            alt={product.name}
+            loading={loading}
+            decoding="async"
+            width="800"
+            height="640"
+            class="featured-card-image absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-espresso-900/90 via-espresso-900/40 to-transparent"
+          ></div>
+
+          <div class="absolute left-4 top-4 flex items-center gap-2">
+            <FeaturedBadge label="Más vendido" icon="star" tone="cheddar" size="md" />
+          </div>
+
+          <div class="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 text-cream-50">
+            <div class="min-w-0">
+              <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-cheese-300">
+                {product.category}
+              </p>
+              <h3 class="mt-1 font-display text-2xl font-extrabold leading-tight sm:text-3xl">
+                {product.name}
+              </h3>
+              {priceText && (
+                <p class="mt-1.5 text-base font-bold text-cheddar">
+                  {priceText} <span class="text-xs font-medium text-cream-200/80">{unitText}</span>
+                </p>
+              )}
+            </div>
+            <span
+              aria-hidden="true"
+              class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cream-50 text-espresso-900 transition group-hover:translate-x-0.5"
+            >
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" class="h-4 w-4">
+                <path d="M5 10h10M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </button>
+    </article>
+  ) : (
+    <article class="featured-card group relative overflow-hidden rounded-2xl bg-white p-3 ring-1 ring-espresso-900/5 shadow-card">
+      <button
+        type="button"
+        data-open-product={product.id}
+        class="flex w-full items-center gap-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cheddar focus-visible:ring-offset-2 focus-visible:ring-offset-cream-50"
+        aria-label={`Ver ${product.name}`}
+      >
+        <div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-cream-100">
+          <img
+            src={product.image_url}
+            alt={product.name}
+            loading={loading}
+            decoding="async"
+            width="160"
+            height="160"
+            class="featured-card-image absolute inset-0 h-full w-full object-cover"
+          />
+          <span class="absolute left-1.5 top-1.5">
+            <FeaturedBadge label="Top" icon="spark" tone="cheddar" size="sm" />
+          </span>
+        </div>
+
+        <div class="min-w-0 flex-1">
+          <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-espresso-500">
+            {product.category}
+          </p>
+          <h3 class="mt-0.5 truncate font-display text-sm font-extrabold text-espresso-900">
+            {product.name}
+          </h3>
+          {priceText && (
+            <p class="mt-1 text-xs font-bold text-cheddar">
+              {priceText}
+              <span class="ml-1 text-[10px] font-medium text-espresso-700">{unitText}</span>
+            </p>
+          )}
+        </div>
+
+        <span
+          aria-hidden="true"
+          class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cream-100 text-espresso-900 transition group-hover:bg-cheddar group-hover:translate-x-0.5"
+        >
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" class="h-3.5 w-3.5">
+            <path d="M5 10h10M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </button>
+    </article>
+  )
+}

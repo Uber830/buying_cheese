@@ -1,0 +1,65 @@
+---
+import type { Product } from '@/types/product';
+import FeaturedBadge from './FeaturedBadge.astro';
+import FeaturedCard from './FeaturedCard.astro';
+
+type Props = {
+  featured: Product[];
+};
+
+const { featured } = Astro.props;
+const [primary, ...rest] = featured;
+---
+
+{primary && (
+  <section
+    role="region"
+    aria-label="Productos más vendidos"
+    data-reveal="scale"
+    style="--reveal-delay: 200ms"
+    class="relative w-full max-w-md"
+  >
+    <div
+      aria-hidden="true"
+      class="absolute -inset-4 -z-10 rounded-[2.5rem] bg-cheese-300/50 blur-2xl"
+    ></div>
+
+    <div class="relative rounded-[2rem] bg-white p-5 shadow-cheese ring-1 ring-espresso-900/5 sm:p-6">
+      <header class="flex items-center justify-between gap-3">
+        <FeaturedBadge label="Más vendidos" icon="star" tone="cheddar" size="md" />
+        <FeaturedBadge label="Recién hechos" tone="cream" size="md" />
+      </header>
+
+      <div class="mt-5">
+        <FeaturedCard product={primary} variant="hero" loading="eager" />
+      </div>
+
+      {rest.length > 0 && (
+        <ul class="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          {rest.map((p) => (
+            <li>
+              <FeaturedCard product={p} variant="compact" loading="lazy" />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <a
+        href="#productos"
+        class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-espresso-900/15 px-5 py-3 text-sm font-bold text-espresso-900 transition hover:-translate-y-0.5 hover:border-cheddar hover:bg-cheese-50 hover:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-cheddar focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+      >
+        Ver todos los productos
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          class="h-4 w-4 transition group-hover:translate-x-0.5"
+        >
+          <path d="M5 10h10M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </section>
+)}

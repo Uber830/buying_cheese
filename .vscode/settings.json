@@ -1,0 +1,17 @@
+{
+  "css.lint.unknownAtRules": [
+    "tailwind",
+    "apply",
+    "variants",
+    "responsive",
+    "screen",
+    "layer",
+    "config",
+    "plugin",
+    "theme",
+    "source",
+    "utility",
+    "variant",
+    "custom-variant"
+  ]
+}

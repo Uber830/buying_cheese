@@ -1,0 +1,123 @@
+---
+import Container from '@/components/ui/Container.astro';
+import { SITE } from '@/lib/site';
+
+const links = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#nosotros', label: 'Nosotros' },
+  { href: '#productos', label: 'Catálogo' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,backdrop-filter,transform] duration-300"
+  data-header
+>
+  <Container class="flex items-center justify-between gap-6 py-4">
+    <a href="#inicio" class="flex items-center gap-3" aria-label={SITE.name}>
+      <span class="grid h-16 w-16 place-items-center rounded-2xl bg-cream-50 shadow-cheese ring-1 ring-espresso-900/5 overflow-hidden">
+        <img
+          src={SITE.logoUrl}
+          alt=""
+          width="64"
+          height="64"
+          loading="eager"
+          decoding="async"
+          class="h-full w-full object-contain p-1"
+        />
+      </span>
+      <span class="flex flex-col leading-none">
+        <span class="font-script text-2xl text-cheddar">La Colina</span>
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-espresso-500">
+          Quesos
+        </span>
+      </span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex items-center gap-1">
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="rounded-full px-4 py-2 text-sm font-medium text-espresso-700 transition hover:bg-cheese-100 hover:text-espresso-900"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="#productos" class="hidden md:inline-flex btn-primary">
+      Ver catálogo
+    </a>
+
+    <details class="relative md:hidden">
+      <summary
+        class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-2xl border border-espresso-900/10 bg-cream-50"
+        aria-label="Abrir menú"
+      >
+        <span class="sr-only">Menú</span>
+        <span aria-hidden="true" class="flex flex-col gap-1.5">
+          <span class="block h-0.5 w-5 rounded bg-espresso-900"></span>
+          <span class="block h-0.5 w-5 rounded bg-espresso-900"></span>
+          <span class="block h-0.5 w-5 rounded bg-espresso-900"></span>
+        </span>
+      </summary>
+
+      <nav
+        aria-label="Móvil"
+        class="absolute right-0 top-14 w-72 rounded-3xl border border-espresso-900/5 bg-white p-4 shadow-card"
+      >
+        <ul class="flex flex-col gap-1">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="block rounded-2xl px-4 py-3 text-sm font-medium text-espresso-700 transition hover:bg-cheese-100 hover:text-espresso-900"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+          <li class="mt-2">
+            <a href="#productos" class="btn-primary w-full">
+              Ver catálogo
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </Container>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 12) {
+        header.classList.add('bg-cream-50/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-espresso-900/5');
+      } else {
+        header.classList.remove('bg-cream-50/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-espresso-900/5');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  document.querySelectorAll<HTMLDetailsElement>('details').forEach((d) => {
+    d.addEventListener('toggle', () => {
+      document.querySelectorAll<HTMLDetailsElement>('details').forEach((other) => {
+        if (other !== d) other.open = false;
+      });
+      if (header) {
+        if (d.open) header.setAttribute('data-menu-open', 'true');
+        else header.removeAttribute('data-menu-open');
+      }
+    });
+  });
+</script>

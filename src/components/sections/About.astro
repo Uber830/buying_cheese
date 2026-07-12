@@ -1,0 +1,258 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+
+const stats = [
+  { prefix: '+', value: 15, suffix: '', label: 'Años de tradición' },
+  { prefix: '', value: 100, suffix: '%', label: 'Producción local' },
+  { prefix: '+', value: 12, suffix: '', label: 'Referencias frescas' },
+  { prefix: '', value: 24, suffix: ' h', label: 'De la fábrica a tu mesa' },
+];
+
+const images = [
+  {
+    src: 'https://aadvjqgohwqoiwvezawh.supabase.co/storage/v1/object/public/products/cow-img1-new.webp',
+    alt: 'Ganado pastando en la sabana en la finca',
+  },
+  {
+    src: 'https://aadvjqgohwqoiwvezawh.supabase.co/storage/v1/object/public/products/cow-img2-new.webp',
+    alt: 'Novillo en la finca',
+  },
+  {
+    src: 'https://aadvjqgohwqoiwvezawh.supabase.co/storage/v1/object/public/products/cow-img3-new.webp',
+    alt: 'Ganado pastando en la sabana en la niebla',
+  },
+];
+---
+
+<section id="nosotros" class="bg-cream-100 py-20 sm:py-28">
+  <Container>
+    <SectionTitle
+      eyebrow="Sobre nosotros"
+      title="Sabana, leche fresca y tradición"
+      subtitle="Somos una quesería familiar ubicada en Mosquera, Cundinamarca. Trabajamos con productores locales del altiplano y controlamos todo el proceso: desde la recepción de la leche hasta el empaque final."
+      align="left"
+    />
+
+    <div class="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+      <div class="relative">
+        <div
+          aria-hidden="true"
+          class="absolute -inset-3 -z-0 rotate-2 rounded-[2.5rem] bg-cheese-300"
+        >
+        </div>
+        <div
+          aria-hidden="true"
+          class="absolute -inset-3 -z-0 -rotate-2 rounded-[2.5rem] border-2 border-espresso-900/10 bg-cream-50"
+        >
+        </div>
+
+        <div
+          class="about-carousel relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-cream-50 shadow-card"
+          data-carousel
+        >
+          <ul
+            class="about-carousel__list absolute inset-0"
+            data-carousel-track
+            aria-roledescription="carrusel"
+            aria-label="Imágenes de nuestra finca y ganado"
+          >
+            {images.map((img, i) => (
+              <li
+                class={`about-carousel__slide absolute inset-0 ${i === 0 ? 'is-active' : ''}`}
+                aria-hidden={i !== 0}
+                aria-label={`${i + 1} de ${images.length}`}
+                aria-roledescription="slide"
+                data-carousel-slide={i}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  draggable="false"
+                  class="h-full w-full select-none object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+
+          <button
+            type="button"
+            class="about-carousel__nav absolute left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-cream-50/90 text-espresso-900 shadow-card transition hover:bg-cream-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cheddar"
+            aria-label="Imagen anterior"
+            data-carousel-prev
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="about-carousel__nav absolute right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-cream-50/90 text-espresso-900 shadow-card transition hover:bg-cream-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cheddar"
+            aria-label="Siguiente imagen"
+            data-carousel-next
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          <div class="about-carousel__dots absolute inset-x-0 bottom-3 flex justify-center gap-2">
+            {images.map((_, i) => (
+              <button
+                type="button"
+                class={`about-carousel__dot h-2 rounded-full transition-all duration-200 ${i === 0 ? 'w-6 bg-cheddar' : 'w-2 bg-white/70'}`}
+                aria-label={`Ir a la imagen ${i + 1}`}
+                aria-current={i === 0 ? 'true' : 'false'}
+                data-carousel-dot={i}
+              ></button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-5 text-espresso-700">
+        <p
+          data-reveal="fade-up"
+          style="--reveal-delay: 0ms"
+          class="text-balance text-lg leading-relaxed"
+        >
+          En <strong class="text-espresso-900">Quesos La Colina</strong> creemos
+          que un buen queso nace de una buena leche y de una <strong>sabana
+          generosa</strong>. Por eso seleccionamos productores del altiplano
+          cundinamarqués y trabajamos con leche fresca todos los días.
+        </p>
+        <p
+          data-reveal="fade-up"
+          style="--reveal-delay: 100ms"
+          class="text-balance text-lg leading-relaxed"
+        >
+          Nuestra planta opera bajo estándares de calidad y buenas prácticas de
+          manufactura. Cada pieza que sale de La Colina conserva su sabor, su
+          textura y la promesa de un producto natural.
+        </p>
+
+        <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {stats.map((s, i) => (
+            <div
+              data-reveal="fade-up"
+              style={`--reveal-delay: ${i * 80}ms`}
+              class="rounded-2xl bg-white p-4 text-center shadow-card"
+            >
+              <dt
+                class="font-display text-3xl font-extrabold text-cheddar"
+                data-counter
+                data-counter-value={s.value}
+                data-counter-prefix={s.prefix}
+                data-counter-suffix={s.suffix}
+              >
+                {s.prefix}0{s.suffix}
+              </dt>
+              <dd class="mt-1 text-xs font-medium text-espresso-700">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .about-carousel__slide {
+    opacity: 0;
+    transition: opacity 600ms ease;
+    pointer-events: none;
+  }
+  .about-carousel__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .about-carousel__slide img {
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-carousel__slide {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const carousels = document.querySelectorAll<HTMLElement>('[data-carousel]');
+  carousels.forEach((root) => {
+    const slides = Array.from(
+      root.querySelectorAll<HTMLElement>('[data-carousel-slide]')
+    );
+    const dots = Array.from(
+      root.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]')
+    );
+    const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    if (slides.length === 0) return;
+
+    let activeIndex = 0;
+    let timer: number | undefined;
+
+    const setActive = (idx: number) => {
+      activeIndex = ((idx % slides.length) + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        const isActive = i === activeIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+      dots.forEach((dot, i) => {
+        const isActive = i === activeIndex;
+        dot.setAttribute('aria-current', String(isActive));
+        dot.classList.toggle('w-6', isActive);
+        dot.classList.toggle('w-2', !isActive);
+        dot.classList.toggle('bg-cheddar', isActive);
+        dot.classList.toggle('bg-white/70', !isActive);
+      });
+    };
+
+    const startAutoplay = () => {
+      if (timer !== undefined) return;
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+      if (reduceMotion) return;
+      timer = window.setInterval(() => {
+        setActive(activeIndex + 1);
+      }, 5000);
+    };
+
+    const stopAutoplay = () => {
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+
+    prev?.addEventListener('click', () => {
+      stopAutoplay();
+      setActive(activeIndex - 1);
+      startAutoplay();
+    });
+    next?.addEventListener('click', () => {
+      stopAutoplay();
+      setActive(activeIndex + 1);
+      startAutoplay();
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        setActive(i);
+        startAutoplay();
+      });
+    });
+
+    root.addEventListener('mouseenter', stopAutoplay);
+    root.addEventListener('mouseleave', startAutoplay);
+    root.addEventListener('focusin', stopAutoplay);
+    root.addEventListener('focusout', startAutoplay);
+
+    setActive(0);
+    startAutoplay();
+  });
+</script>
