@@ -36,7 +36,7 @@ function readStorage(): CartItem[] {
         typeof i.id === 'string' &&
         typeof i.name === 'string' &&
         typeof i.quantity === 'number' &&
-        i.quantity > 0
+        i.quantity > 0,
     );
   } catch {
     return [];
@@ -112,9 +112,7 @@ export function addProduct(product: Product): CartItem[] {
 
 export function incrementItem(id: string) {
   ensureHydrated();
-  const next = memory.map((i) =>
-    i.id === id ? { ...i, quantity: i.quantity + 1 } : i
-  );
+  const next = memory.map((i) => (i.id === id ? { ...i, quantity: i.quantity + 1 } : i));
   setState(next);
 }
 

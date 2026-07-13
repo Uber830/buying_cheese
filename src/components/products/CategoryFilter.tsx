@@ -33,10 +33,7 @@ function deriveCategories(products: Product[]): string[] {
   return Array.from(set).sort((a, b) => a.localeCompare(b, 'es'));
 }
 
-export default function CategoryFilter({
-  initialProducts = [],
-  initialCategories = [],
-}: Props) {
+export default function CategoryFilter({ initialProducts = [], initialCategories = [] }: Props) {
   const [active, setActive] = useState<string>('Todos');
   const [openProductId, setOpenProductId] = useState<string | null>(null);
   const [state, setState] = useState<LoadState>(() =>
@@ -45,12 +42,10 @@ export default function CategoryFilter({
           status: 'ready',
           products: initialProducts,
           categories:
-            initialCategories.length > 0
-              ? initialCategories
-              : deriveCategories(initialProducts),
+            initialCategories.length > 0 ? initialCategories : deriveCategories(initialProducts),
           updatedAt: Date.now(),
         }
-      : { status: 'loading' }
+      : { status: 'loading' },
   );
 
   const load = useCallback(async () => {
@@ -104,7 +99,7 @@ export default function CategoryFilter({
 
   const openProduct = useMemo(
     () => products.find((p) => p.id === openProductId) ?? null,
-    [products, openProductId]
+    [products, openProductId],
   );
 
   useEffect(() => {
@@ -163,10 +158,7 @@ export default function CategoryFilter({
           className="mt-10 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {Array.from({ length: 6 }).map((_, i) => (
-            <li
-              key={i}
-              className="h-72 animate-pulse rounded-3xl bg-cream-200/60"
-            />
+            <li key={i} className="h-72 animate-pulse rounded-3xl bg-cream-200/60" />
           ))}
         </ul>
       )}
@@ -191,11 +183,7 @@ export default function CategoryFilter({
       )}
 
       {openProduct && (
-        <ProductModal
-          product={openProduct}
-          open={true}
-          onClose={() => setOpenProductId(null)}
-        />
+        <ProductModal product={openProduct} open={true} onClose={() => setOpenProductId(null)} />
       )}
     </div>
   );

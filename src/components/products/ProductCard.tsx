@@ -124,8 +124,8 @@ export default function ProductCard({ product, onOpen }: Props) {
               isOut
                 ? 'cursor-not-allowed bg-cream-200 text-espresso-500'
                 : justAdded
-                ? 'bg-meadow-500 text-white'
-                : 'bg-meadow-500 text-white hover:bg-meadow-600',
+                  ? 'bg-meadow-500 text-white'
+                  : 'bg-meadow-500 text-white hover:bg-meadow-600',
             ].join(' ')}
           >
             <span aria-hidden>{isOut ? '\u00d7' : justAdded ? '\u2713' : '+'}</span>{' '}

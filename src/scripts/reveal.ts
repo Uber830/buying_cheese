@@ -25,7 +25,7 @@ function setupReveal(): void {
         }
       });
     },
-    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
   );
 
   const watch = (root: ParentNode = document) => {
@@ -98,7 +98,7 @@ function setupCounters(): void {
         }
       });
     },
-    { threshold: 0.4 }
+    { threshold: 0.4 },
   );
 
   const watch = (root: ParentNode = document) => {
@@ -155,7 +155,7 @@ function setupNavbar(): void {
         ticking = true;
       }
     },
-    { passive: true }
+    { passive: true },
   );
 }
 

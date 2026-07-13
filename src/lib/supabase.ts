@@ -5,7 +5,7 @@ const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   throw new Error(
-    '[supabase] Faltan variables PUBLIC_SUPABASE_URL o PUBLIC_SUPABASE_ANON_KEY. Revisa .env.'
+    '[supabase] Faltan variables PUBLIC_SUPABASE_URL o PUBLIC_SUPABASE_ANON_KEY. Revisa .env.',
   );
 }
 

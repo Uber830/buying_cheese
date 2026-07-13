@@ -57,24 +57,26 @@ const images = [
             aria-roledescription="carrusel"
             aria-label="Imágenes de nuestra finca y ganado"
           >
-            {images.map((img, i) => (
-              <li
-                class={`about-carousel__slide absolute inset-0 ${i === 0 ? 'is-active' : ''}`}
-                aria-hidden={i !== 0}
-                aria-label={`${i + 1} de ${images.length}`}
-                aria-roledescription="slide"
-                data-carousel-slide={i}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  draggable="false"
-                  class="h-full w-full select-none object-cover"
-                />
-              </li>
-            ))}
+            {
+              images.map((img, i) => (
+                <li
+                  class={`about-carousel__slide absolute inset-0 ${i === 0 ? 'is-active' : ''}`}
+                  aria-hidden={i !== 0}
+                  aria-label={`${i + 1} de ${images.length}`}
+                  aria-roledescription="slide"
+                  data-carousel-slide={i}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    draggable="false"
+                    class="h-full w-full select-none object-cover"
+                  />
+                </li>
+              ))
+            }
           </ul>
 
           <button
@@ -83,8 +85,17 @@ const images = [
             aria-label="Imagen anterior"
             data-carousel-prev
           >
-            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 18l-6-6 6-6" />
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6"></path>
             </svg>
           </button>
           <button
@@ -93,21 +104,32 @@ const images = [
             aria-label="Siguiente imagen"
             data-carousel-next
           >
-            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6" />
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 6l6 6-6 6"></path>
             </svg>
           </button>
 
           <div class="about-carousel__dots absolute inset-x-0 bottom-3 flex justify-center gap-2">
-            {images.map((_, i) => (
-              <button
-                type="button"
-                class={`about-carousel__dot h-2 rounded-full transition-all duration-200 ${i === 0 ? 'w-6 bg-cheddar' : 'w-2 bg-white/70'}`}
-                aria-label={`Ir a la imagen ${i + 1}`}
-                aria-current={i === 0 ? 'true' : 'false'}
-                data-carousel-dot={i}
-              ></button>
-            ))}
+            {
+              images.map((_, i) => (
+                <button
+                  type="button"
+                  class={`about-carousel__dot h-2 rounded-full transition-all duration-200 ${i === 0 ? 'w-6 bg-cheddar' : 'w-2 bg-white/70'}`}
+                  aria-label={`Ir a la imagen ${i + 1}`}
+                  aria-current={i === 0 ? 'true' : 'false'}
+                  data-carousel-dot={i}
+                />
+              ))
+            }
           </div>
         </div>
       </div>
@@ -118,40 +140,41 @@ const images = [
           style="--reveal-delay: 0ms"
           class="text-balance text-lg leading-relaxed"
         >
-          En <strong class="text-espresso-900">Quesos La Colina</strong> creemos
-          que un buen queso nace de una buena leche y de una <strong>sabana
-          generosa</strong>. Por eso seleccionamos productores del altiplano
-          cundinamarqués y trabajamos con leche fresca todos los días.
+          En <strong class="text-espresso-900">Quesos La Colina</strong> creemos que un buen queso nace
+          de una buena leche y de una <strong>sabana generosa</strong>. Por eso seleccionamos
+          productores del altiplano cundinamarqués y trabajamos con leche fresca todos los días.
         </p>
         <p
           data-reveal="fade-up"
           style="--reveal-delay: 100ms"
           class="text-balance text-lg leading-relaxed"
         >
-          Nuestra planta opera bajo estándares de calidad y buenas prácticas de
-          manufactura. Cada pieza que sale de La Colina conserva su sabor, su
-          textura y la promesa de un producto natural.
+          Nuestra planta opera bajo estándares de calidad y buenas prácticas de manufactura. Cada
+          pieza que sale de La Colina conserva su sabor, su textura y la promesa de un producto
+          natural.
         </p>
 
         <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {stats.map((s, i) => (
-            <div
-              data-reveal="fade-up"
-              style={`--reveal-delay: ${i * 80}ms`}
-              class="rounded-2xl bg-white p-4 text-center shadow-card"
-            >
-              <dt
-                class="font-display text-3xl font-extrabold text-cheddar"
-                data-counter
-                data-counter-value={s.value}
-                data-counter-prefix={s.prefix}
-                data-counter-suffix={s.suffix}
+          {
+            stats.map((s, i) => (
+              <div
+                data-reveal="fade-up"
+                style={`--reveal-delay: ${i * 80}ms`}
+                class="rounded-2xl bg-white p-4 text-center shadow-card"
               >
-                {s.prefix}0{s.suffix}
-              </dt>
-              <dd class="mt-1 text-xs font-medium text-espresso-700">{s.label}</dd>
-            </div>
-          ))}
+                <dt
+                  class="font-display text-3xl font-extrabold text-cheddar"
+                  data-counter
+                  data-counter-value={s.value}
+                  data-counter-prefix={s.prefix}
+                  data-counter-suffix={s.suffix}
+                >
+                  {s.prefix}0{s.suffix}
+                </dt>
+                <dd class="mt-1 text-xs font-medium text-espresso-700">{s.label}</dd>
+              </div>
+            ))
+          }
         </dl>
       </div>
     </div>
@@ -181,12 +204,8 @@ const images = [
 <script>
   const carousels = document.querySelectorAll<HTMLElement>('[data-carousel]');
   carousels.forEach((root) => {
-    const slides = Array.from(
-      root.querySelectorAll<HTMLElement>('[data-carousel-slide]')
-    );
-    const dots = Array.from(
-      root.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]')
-    );
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-carousel-slide]'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]'));
     const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
     const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
     if (slides.length === 0) return;
@@ -213,9 +232,7 @@ const images = [
 
     const startAutoplay = () => {
       if (timer !== undefined) return;
-      const reduceMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduceMotion) return;
       timer = window.setInterval(() => {
         setActive(activeIndex + 1);

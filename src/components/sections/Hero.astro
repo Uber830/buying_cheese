@@ -45,9 +45,9 @@ const featured = await getFeaturedProducts();
         style="--reveal-delay: 220ms"
         class="mt-6 max-w-xl text-balance text-lg leading-relaxed text-espresso-700"
       >
-        Fábrica artesanal de <strong>quesos</strong> y <strong>yogures</strong> en
-        Funza, Cundinamarca. Tradición lechera del altiplano cundinamarqués
-        con productos frescos, sin conservantes y hechos con leche local.
+        Fábrica artesanal de <strong>quesos</strong> y <strong>yogures</strong> en Funza, Cundinamarca.
+        Tradición lechera del altiplano cundinamarqués con productos frescos, sin conservantes y hechos
+        con leche local.
       </p>
 
       <ul
@@ -94,21 +94,25 @@ const featured = await getFeaturedProducts();
         <span>
           <strong>Domicilio gratis</strong> en pedidos superiores a{' '}
           <strong>
-            {new Intl.NumberFormat('es-CO', {
-              style: 'currency',
-              currency: SITE.currency,
-              maximumFractionDigits: 0,
-            }).format(SITE.freeShippingFromCop)}
+            {
+              new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: SITE.currency,
+                maximumFractionDigits: 0,
+              }).format(SITE.freeShippingFromCop)
+            }
           </strong>
         </span>
       </div>
     </div>
 
-    {featured.length > 0 && (
-      <div class="flex justify-center md:justify-end">
-        <FeaturedProducts featured={featured} />
-      </div>
-    )}
+    {
+      featured.length > 0 && (
+        <div class="flex justify-center md:justify-end">
+          <FeaturedProducts featured={featured} />
+        </div>
+      )
+    }
   </Container>
 </section>
 

@@ -142,9 +142,7 @@ export default function ProductModal({ product, open, onClose }: Props) {
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-espresso-700">
               Descripción
             </h3>
-            <p className="mt-2 text-base leading-relaxed text-espresso-900">
-              {longDescription}
-            </p>
+            <p className="mt-2 text-base leading-relaxed text-espresso-900">{longDescription}</p>
           </div>
 
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -169,7 +167,9 @@ export default function ProductModal({ product, open, onClose }: Props) {
               aria-disabled={isOut}
               className={[
                 'btn-primary flex-1',
-                isOut ? 'cursor-not-allowed bg-cream-200 text-espresso-500 shadow-none hover:scale-100' : '',
+                isOut
+                  ? 'cursor-not-allowed bg-cream-200 text-espresso-500 shadow-none hover:scale-100'
+                  : '',
               ].join(' ')}
             >
               <span aria-hidden>+</span>

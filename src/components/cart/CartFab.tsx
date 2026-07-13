@@ -89,15 +89,11 @@ export default function CartFab() {
             <div className="flex-1 overflow-y-auto px-5 py-4">
               {items.length === 0 ? (
                 <div className="grid place-items-center gap-4 py-16 text-center">
-                  <span aria-hidden className="text-5xl">🧺</span>
-                  <p className="text-espresso-700">
-                    Aún no has agregado productos.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(false)}
-                    className="btn-secondary"
-                  >
+                  <span aria-hidden className="text-5xl">
+                    🧺
+                  </span>
+                  <p className="text-espresso-700">Aún no has agregado productos.</p>
+                  <button type="button" onClick={() => setOpen(false)} className="btn-secondary">
                     Explorar el catálogo
                   </button>
                 </div>
@@ -126,7 +122,9 @@ export default function CartFab() {
                                 style: 'currency',
                                 currency: SITE.currency,
                                 maximumFractionDigits: 0,
-                              }).format(item.price)} / ${item.unit_label === 'kg' ? 'kg' : item.unit_label === 'lb' ? 'lb' : 'und'}`
+                              }).format(
+                                item.price,
+                              )} / ${item.unit_label === 'kg' ? 'kg' : item.unit_label === 'lb' ? 'lb' : 'und'}`
                             : 'A convenir'}
                         </p>
                         <div className="mt-1.5 flex items-center gap-2">
@@ -144,8 +142,8 @@ export default function CartFab() {
                               {item.unit_label === 'kg'
                                 ? 'kg'
                                 : item.unit_label === 'lb'
-                                ? 'lb'
-                                : 'und'}
+                                  ? 'lb'
+                                  : 'und'}
                             </span>
                           </span>
                           <button
@@ -201,9 +199,7 @@ export default function CartFab() {
                 }}
                 className={[
                   'btn-primary w-full',
-                  items.length === 0
-                    ? 'pointer-events-none opacity-60'
-                    : '',
+                  items.length === 0 ? 'pointer-events-none opacity-60' : '',
                 ].join(' ')}
               >
                 <span aria-hidden>💬</span>

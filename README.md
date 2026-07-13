@@ -127,15 +127,15 @@ guarda la URL pública en `image_url`. El sitio hace `select('*')` ordenado por
 
 ## Scripts disponibles
 
-| Script                 | Acción                                                                 |
-| ---------------------- | ---------------------------------------------------------------------- |
+| Script                 | Acción                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------- |
 | `npm run dev`          | Servidor de desarrollo con HMR ([http://localhost:4321](http://localhost:4321)) |
-| `npm run start`        | Alias de `dev`                                                         |
-| `npm run build`        | Build de producción a `dist/`                                          |
-| `npm run preview`      | Servir el build localmente                                             |
-| `npm run format`       | Formatea todo el código con Prettier                                   |
-| `npm run format:check` | Comprueba el formato sin escribir                                      |
-| `npm run astro`        | Acceso directo al CLI de Astro                                         |
+| `npm run start`        | Alias de `dev`                                                                  |
+| `npm run build`        | Build de producción a `dist/`                                                   |
+| `npm run preview`      | Servir el build localmente                                                      |
+| `npm run format`       | Formatea todo el código con Prettier                                            |
+| `npm run format:check` | Comprueba el formato sin escribir                                               |
+| `npm run astro`        | Acceso directo al CLI de Astro                                                  |
 
 ## Despliegue
 
@@ -144,7 +144,7 @@ gracias al workflow `.github/workflows/deploy.yml` (Astro build → `actions/dep
 
 ### Configuración inicial del repositorio
 
-1. **Settings → Pages → Build and deployment**: source = *GitHub Actions*.
+1. **Settings → Pages → Build and deployment**: source = _GitHub Actions_.
 2. **Settings → Secrets and variables → Actions**: crea las claves que el workflow
    consume (si faltan, el build usa placeholders y el catálogo sale vacío):
    - `PUBLIC_SUPABASE_URL`

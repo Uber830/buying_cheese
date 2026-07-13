@@ -20,8 +20,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   image: {
-    remotePatterns: [
-      { protocol: 'https', hostname: '**.supabase.co' },
-    ],
+    remotePatterns: [{ protocol: 'https', hostname: '**.supabase.co' }],
   },
 });
