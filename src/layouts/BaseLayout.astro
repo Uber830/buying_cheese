@@ -19,8 +19,13 @@ const {
 } = Astro.props;
 
 const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const baseURL = import.meta.env.BASE_URL.replace(/\/$/, '');
+const faviconHref = `${baseURL}/favicon.svg`;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? SITE.url).toString();
-const ogImage = new URL(image, Astro.site ?? SITE.url).toString();
+const ogImage = new URL(
+  image.startsWith('http') ? image : `${baseURL}/${image.replace(/^\//, '')}`,
+  Astro.site ?? SITE.url,
+).toString();
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -46,7 +51,7 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" title="Quesos La Colina" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} title="Quesos La Colina" />
     <link rel="canonical" href={canonicalURL} />
 
     <title>{fullTitle}</title>
