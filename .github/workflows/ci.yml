@@ -32,7 +32,7 @@ jobs:
           PUBLIC_SUPABASE_ANON_KEY: ${{ vars.PUBLIC_SUPABASE_ANON_KEY || secrets.PUBLIC_SUPABASE_ANON_KEY || 'placeholder' }}
         run: npm run build
 
-      - name: Upload Pages artifact
+      - name: Upload Pages artifact (for verification)
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
