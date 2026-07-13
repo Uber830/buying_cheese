@@ -47,8 +47,7 @@ Sitio en producción: **<https://uber830.github.io/buying_cheese/>**
 │   │   └── global.css             # Tailwind v4 + tokens del tema
 │   └── types/                     # Tipos compartidos (product, cart)
 ├── supabase/
-│   ├── schema.sql                 # Tabla products, RLS, triggers
-│   └── seed.sql                   # Productos de ejemplo
+│   └── schema.sql                 # Tabla products, RLS, triggers
 ├── .editorconfig
 ├── .env.example
 ├── .gitignore
