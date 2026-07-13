@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: pages
@@ -23,11 +24,15 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      actions: read
     steps:
       - name: Download Pages artifact from CI
-        uses: actions/download-pages-artifact@v1
+        uses: actions/download-artifact@v4
         with:
+          name: github-pages
+          path: ./dist
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
         id: deployment
