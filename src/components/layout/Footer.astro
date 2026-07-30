@@ -11,11 +11,6 @@ const sections = [
   { label: 'Servicios', href: '#servicios' },
   { label: 'Contacto', href: '#contacto' },
 ];
-
-const social = [
-  { name: 'Facebook', href: SITE.social.facebook, short: 'Fb' },
-  { name: 'Instagram', href: SITE.social.instagram, short: 'Ig' },
-];
 ---
 
 <footer class="bg-espresso-900 text-cream-100">
@@ -44,27 +39,9 @@ const social = [
           </span>
         </div>
         <p class="mt-5 max-w-md text-sm leading-relaxed text-cream-200/80">
-          Fábrica artesanal de quesos y yogures ubicada en Mosquera, Cundinamarca. Productos frescos
-          del altiplano cundinamarqués con la tradición lechera de la sabana.
+          Empresa familiar de productos lácteos ubicada en Mosquera, Cundinamarca. Selección de
+          marcas locales y nacionales, con la tradición lechera de la sabana.
         </p>
-
-        <ul class="mt-6 flex items-center gap-2" aria-label="Redes sociales">
-          {
-            social.map((s) => (
-              <li>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.name}
-                  class="grid h-10 w-10 place-items-center rounded-full bg-cream-100/10 text-sm font-bold text-cream-100 transition hover:bg-cheese-500 hover:text-espresso-900"
-                >
-                  {s.short}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
       </div>
 
       <div>
