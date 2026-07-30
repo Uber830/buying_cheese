@@ -1,0 +1,56 @@
+---
+import '@/styles/global.css';
+import AdminApp from '@/components/admin/AdminApp';
+
+const baseURL = import.meta.env.BASE_URL.replace(/\/$/, '');
+const title = 'Panel de administración | Quesos La Colina';
+const description = 'Acceso restringido para administradores de Quesos La Colina.';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/svg+xml" href={`${baseURL}/favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    />
+  </head>
+  <body class="min-h-screen bg-cream-50">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-100 focus:rounded-full focus:bg-cheese-500 focus:px-4 focus:py-2 focus:text-espresso-900"
+    >
+      Saltar al contenido
+    </a>
+    <header class="border-b border-espresso-900/10 bg-white">
+      <div class="container-page flex items-center justify-between gap-4 py-4">
+        <a href={`${baseURL}/`} class="flex items-center gap-3" aria-label="Inicio">
+          <span
+            class="grid h-12 w-12 place-items-center rounded-2xl bg-cream-100 shadow-card"
+            aria-hidden="true"
+          >
+            <span class="text-2xl">🧀</span>
+          </span>
+          <span class="flex flex-col leading-none">
+            <span class="font-script text-xl text-cheddar">La Colina</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-espresso-500">
+              Admin
+            </span>
+          </span>
+        </a>
+        <a href={`${baseURL}/`} class="btn-ghost text-sm">← Volver al sitio</a>
+      </div>
+    </header>
+    <main id="main">
+      <AdminApp client:only="react" />
+    </main>
+  </body>
+</html>
