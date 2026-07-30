@@ -40,7 +40,7 @@ const isHero = variant === 'hero';
         class="block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cheddar focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         aria-label={`Ver ${product.name}`}
       >
-        <div class="relative aspect-[5/4] overflow-hidden bg-cream-200">
+        <div class="relative aspect-5/4 overflow-hidden bg-cream-200">
           <img
             src={product.image_url}
             alt={product.name}
@@ -52,7 +52,7 @@ const isHero = variant === 'hero';
           />
           <div
             aria-hidden="true"
-            class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-espresso-900/90 via-espresso-900/40 to-transparent"
+            class="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-espresso-900/90 via-espresso-900/40 to-transparent"
           />
 
           <div class="absolute left-4 top-4 flex items-center gap-2">

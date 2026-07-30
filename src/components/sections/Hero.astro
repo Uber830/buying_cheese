@@ -2,7 +2,7 @@
 import Container from '@/components/ui/Container.astro';
 import { SITE } from '@/lib/site';
 import { getFeaturedProducts } from '@/lib/products';
-import FeaturedProducts from '@/components/hero/FeaturedProducts.astro';
+import FeaturedProductsClient from '@/components/hero/FeaturedProductsClient';
 
 const featured = await getFeaturedProducts();
 ---
@@ -10,12 +10,12 @@ const featured = await getFeaturedProducts();
 <section id="inicio" class="relative overflow-hidden">
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute -top-32 right-[-10%] h-[36rem] w-[36rem] rounded-full bg-cheese-300/40 blur-3xl"
+    class="pointer-events-none absolute -top-32 right-[-10%] h-144 w-xl rounded-full bg-cheese-300/40 blur-3xl"
   >
   </div>
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute -bottom-40 left-[-10%] h-[30rem] w-[30rem] rounded-full bg-meadow-200/50 blur-3xl"
+    class="pointer-events-none absolute -bottom-40 left-[-10%] h-120 w-120 rounded-full bg-cheese-200/60 blur-3xl"
   >
   </div>
 
@@ -109,7 +109,7 @@ const featured = await getFeaturedProducts();
     {
       featured.length > 0 && (
         <div class="flex justify-center md:justify-end">
-          <FeaturedProducts featured={featured} />
+          <FeaturedProductsClient client:load initial={featured} />
         </div>
       )
     }
