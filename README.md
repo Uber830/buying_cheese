@@ -1,7 +1,7 @@
 # Quesos La Colina — Sitio web
 
-Sitio institucional de **Quesos La Colina**, fábrica artesanal de quesos y yogur ubicada
-en Mosquera, Cundinamarca. Construido con **Astro** + **Supabase**, optimizado para
+Sitio de **Quesos La Colina**, empresa familiar comercializadora de productos lácteos
+ubicada en Mosquera, Cundinamarca. Construido con **Astro** + **Supabase**, optimizado para
 rendimiento, accesibilidad y SEO.
 
 ![Astro](https://img.shields.io/badge/Astro-7-FF5D01?logo=astro&logoColor=white)
@@ -9,75 +9,45 @@ rendimiento, accesibilidad y SEO.
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white)
-![Deploy](https://img.shields.io/badge/Deploy-GitHub%20Pages-222?logo=githubpages&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Sitio en producción: **<https://uber830.github.io/buying_cheese/>**
 
-## Estructura del proyecto
+---
 
-```
-.
-├── .github/workflows/deploy.yml   # Build + deploy a GitHub Pages
-├── public/
-│   ├── favicon.ico
-│   ├── favicon.svg
-│   └── og-image.svg               # Imagen para Open Graph / redes sociales
-├── src/
-│   ├── components/
-│   │   ├── cart/                  # FAB y drawer del pedido (isla React)
-│   │   ├── hero/                  # Productos destacados del Hero
-│   │   ├── layout/                # Navbar + Footer
-│   │   ├── products/              # ProductCard, ProductModal, CategoryFilter
-│   │   ├── sections/              # Hero, About, Services, Catalog, Contact
-│   │   └── ui/                    # Container, SectionTitle
-│   ├── layouts/
-│   │   └── BaseLayout.astro       # SEO, JSON-LD, Navbar + Footer
-│   ├── lib/
-│   │   ├── cart.ts                # Estado del pedido (localStorage)
-│   │   ├── products.ts            # getActiveProducts / getFeaturedProducts
-│   │   ├── site.ts                # Constantes del sitio y helpers
-│   │   ├── supabase.ts            # Cliente Supabase (singleton)
-│   │   └── whatsapp.ts            # Mensaje + URL para pedidos por WhatsApp
-│   ├── pages/
-│   │   └── index.astro            # Página única del sitio
-│   ├── scripts/
-│   │   └── reveal.ts              # Reveal on scroll, contadores y navbar
-│   ├── styles/
-│   │   └── global.css             # Tailwind v4 + tokens del tema
-│   └── types/                     # Tipos compartidos (product, cart)
-├── supabase/
-│   └── schema.sql                 # Tabla products, RLS, triggers
-├── .editorconfig
-├── .env.example
-├── .gitignore
-├── .nvmrc
-├── .prettierrc
-├── .prettierignore
-├── AGENTS.md                      # Notas para asistentes / IDE
-└── CLAUDE.md -> AGENTS.md
-```
+## Funcionalidades
+
+- **Catálogo público** con filtros por categoría, modal de detalle, pedido por WhatsApp.
+- **Hero con productos destacados** que se actualiza en vivo desde Supabase.
+- **Panel de administración** (`/admin`) protegido por Google OAuth con allowlist:
+  - CRUD de productos (crear, editar, eliminar) con upload de imágenes a Supabase Storage.
+  - Toggle de destacado (Hero) y visibilidad por producto.
+  - Slug autogenerado a partir del nombre, categorías con autocompletar.
+  - Confirmaciones destructivas vía modal a medida.
+  - Sesión persistente en `localStorage` (PKCE).
+- **Pedido por WhatsApp** con resumen del carrito.
+- **100 % estático** — Astro `output: 'static'`, sin SSR.
+
+---
 
 ## Inicio rápido
 
 ```bash
-nvm use            # usa la versión de Node definida en .nvmrc (>= 22.12)
+nvm use            # usa la versión de Node definida en .nvmrc
 npm install
 cp .env.example .env
 # editar .env con PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY
-npm run dev        # http://localhost:4321/buying_cheese (base path por defecto)
+npm run dev        # http://localhost:4322/buying_cheese
 ```
 
-> El `base` por defecto apunta a `/buying_cheese` para que el build funcione
-> directamente en GitHub Pages. Para desarrollo en otra ruta, exporta
-> `PUBLIC_BASE_PATH=''` antes de `npm run dev`.
+---
 
 ## Variables de entorno
 
 Copia `.env.example` a `.env` y completa:
 
 ```
-PUBLIC_SITE_URL=http://localhost:4321
+PUBLIC_SITE_URL=http://localhost:4322
 PUBLIC_BASE_PATH=/buying_cheese
 PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
@@ -85,6 +55,8 @@ PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
 
 Estas variables **se incrustan en el build** (prefijo `PUBLIC_`), por lo que el sitio
 sigue siendo 100 % estático en producción.
+
+---
 
 ## Base de datos
 
@@ -94,48 +66,37 @@ Aplica el esquema con la [CLI de Supabase](https://supabase.com/docs/guides/cli)
 supabase db push
 ```
 
-o pegando `supabase/schema.sql` en el editor SQL del dashboard. Tabla principal:
+Tablas principales:
 
-- **`products`** — catálogo público (solo lectura para `anon` cuando `is_active = true`).
+- **`products`** — catálogo público.
+  Incluye trigger `set_updated_at()`, columnas `is_featured` y `featured_order`
+  (productos del Hero), y bucket público `products` en Storage.
+- **`admin_users`** — allowlist de correos autorizados para el panel.
+  Insertar aquí los correos de cada administrador.
 
-Incluye:
+Hooks y seguridad:
 
-- Trigger `set_updated_at()` para mantener la marca de actualización.
-- Bucket público `products` en Storage.
+- **`before_user_created_hook`** — rechaza registros cuyo correo no esté en
+  `admin_users` (`is_active = true`). Cubre email/password y OAuth (Google).
+- **RLS en `storage.objects`** (bucket `products`): INSERT/UPDATE/DELETE solo
+  para administradores.
 
-## Gestión del catálogo
-
-Para añadir o actualizar productos solo necesitas insertarlos en Supabase:
-
-```sql
-insert into public.products (
-  name, slug, short_description, image_url, category, price, display_order
-) values (
-  'Queso Nuevo',
-  'queso-nuevo',
-  'Descripción corta (10–280 caracteres).',
-  'https://YOUR_PROJECT.supabase.co/storage/v1/object/public/products/queso-nuevo.webp',
-  'Quesos',
-  15000,
-  10
-);
-```
-
-Si quieres imágenes alojadas en Supabase Storage, súbelas al bucket `products` y
-guarda la URL pública en `image_url`. El sitio hace `select('*')` ordenado por
-`display_order` y `name`.
+---
 
 ## Scripts disponibles
 
 | Script                 | Acción                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------- |
-| `npm run dev`          | Servidor de desarrollo con HMR ([http://localhost:4321](http://localhost:4321)) |
+| `npm run dev`          | Servidor de desarrollo con HMR ([http://localhost:4322](http://localhost:4322)) |
 | `npm run start`        | Alias de `dev`                                                                  |
 | `npm run build`        | Build de producción a `dist/`                                                   |
 | `npm run preview`      | Servir el build localmente                                                      |
+| `npm run check`        | `astro check` — TypeScript estricto en `.ts/.tsx/.astro`                        |
 | `npm run format`       | Formatea todo el código con Prettier                                            |
 | `npm run format:check` | Comprueba el formato sin escribir                                               |
 | `npm run astro`        | Acceso directo al CLI de Astro                                                  |
+
+---
 
 ## Despliegue
 
@@ -155,6 +116,8 @@ El sitio queda disponible en `https://<owner>.github.io/buying_cheese/`.
 > El sitio es 100 % estático, así que también funciona tal cual en Vercel, Netlify
 > o Cloudflare Pages: basta con apuntar el comando de build a `npm run build` y
 > el directorio de salida a `dist`.
+
+---
 
 ## Licencia
 

@@ -71,7 +71,7 @@ export default function ProductModal({ product, open, onClose }: Props) {
   const longDescription =
     product.description && product.description.length > 10
       ? product.description
-      : `${product.short_description} Elaborado de forma artesanal en nuestra planta de Mosquera, con leche fresca de productores locales y bajo estrictos controles de calidad.`;
+      : `${product.short_description} Producto seleccionado cuidadosamente entre proveedores locales del altiplano y marcas reconocidas, con estrictos controles de frescura y calidad.`;
 
   return (
     <dialog

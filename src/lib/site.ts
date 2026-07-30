@@ -6,25 +6,21 @@ export const SITE = {
   shortName: 'La Colina',
   tagline: 'Quesos frescos de la sabana',
   description:
-    'F\u00e1brica artesanal de quesos y yogures ubicada en Mosquera, Cundinamarca. Tradici\u00f3n lechera de la sabana con productos frescos del altiplano cundinamarqu\u00e9s.',
+    'Empresa familiar de productos lácteos en Mosquera, Cundinamarca. Selección de quesos y yogur de marcas locales y nacionales, frescos y sin conservantes.',
   url: import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321',
   locale: 'es_CO',
   phoneDisplay: '+57 312 435 2828',
   phoneRaw: '+573124352828',
   email: 'contacto@quesoslacolina.com',
-  address: 'Calle 6a #3a-36, Funza, Cundinamarca \u2013 Colombia',
-  addressShort: 'Calle 6a #3a-36, Funza',
+  address: 'Calle 6a #3a-36, Mosquera, Cundinamarca \u2013 Colombia',
+  addressShort: 'Calle 6a #3a-36, Mosquera',
   freeShippingFromCop: 80000,
   currency: 'COP',
   logoUrl: `${SUPABASE_STORAGE}/logo-gpt-new.webp`,
   mapsEmbedUrl:
-    'https://www.google.com/maps?q=Calle+6a+%233a-36+Funza+Cundinamarca+Colombia&output=embed',
+    'https://www.google.com/maps?q=Calle+6a+%233a-36+Mosquera+Cundinamarca+Colombia&output=embed',
   mapsLink:
-    'https://www.google.com/maps/search/?api=1&query=Calle+6a+%233a-36+Funza+Cundinamarca+Colombia',
-  social: {
-    facebook: 'https://www.facebook.com/',
-    instagram: 'https://www.instagram.com/',
-  },
+    'https://www.google.com/maps/search/?api=1&query=Calle+6a+%233a-36+Mosquera+Cundinamarca+Colombia',
 } as const;
 
 export const UNIT_LABELS = {
