@@ -2,6 +2,8 @@
 
 @source '../**/*.{astro,html,js,jsx,ts,tsx,md,mdx}';
 
+@custom-variant supports-backdrop-filter (@supports (backdrop-filter: blur(0)));
+
 @theme {
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -44,6 +46,15 @@
   --color-hill-300: #d7b87a;
   --color-hill-500: #a8854a;
   --color-hill-700: #6f5530;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
 
   --shadow-cheese: 0 12px 30px -10px rgb(232 155 26 / 0.35);
   --shadow-card: 0 8px 24px -8px rgb(46 32 24 / 0.18);
