@@ -13,6 +13,8 @@ export type Product = {
   unit_label: UnitLabel;
   is_active: boolean;
   display_order: number;
+  is_featured: boolean;
+  featured_order: number | null;
   created_at: string;
   updated_at: string;
 };
@@ -29,6 +31,8 @@ export type ProductInsert = {
   unit_label?: UnitLabel;
   is_active?: boolean;
   display_order?: number;
+  is_featured?: boolean;
+  featured_order?: number | null;
 };
 
 export type ProductUpdate = Partial<ProductInsert>;
