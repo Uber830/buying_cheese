@@ -180,19 +180,18 @@ export default function ProductEditor({ mode, busy, onCancel, onSave }: Props) {
                 />
               </Field>
               <Field label="Categoría" required>
-                <input
-                  type="text"
-                  list="admin-categories"
+                <select
                   value={form.category}
                   onChange={(e) => update('category', e.target.value)}
                   required
                   className="input"
-                />
-                <datalist id="admin-categories">
+                >
                   {CATEGORIES.map((c) => (
-                    <option key={c} value={c} />
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
                   ))}
-                </datalist>
+                </select>
               </Field>
             </div>
             <div className="mt-4 grid gap-4">
