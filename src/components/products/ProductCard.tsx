@@ -64,7 +64,7 @@ export default function ProductCard({ product, onOpen }: Props) {
       <button
         type="button"
         onClick={() => onOpen(product.id)}
-        className="relative aspect-[4/3] overflow-hidden bg-cream-100 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cheese-500"
+        className="relative aspect-4/3 overflow-hidden bg-cream-100 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cheese-500"
         aria-label={`Ver detalles de ${product.name}`}
       >
         <img

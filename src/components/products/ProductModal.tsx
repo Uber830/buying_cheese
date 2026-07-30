@@ -73,10 +73,6 @@ export default function ProductModal({ product, open, onClose }: Props) {
       ? product.description
       : `${product.short_description} Elaborado de forma artesanal en nuestra planta de Mosquera, con leche fresca de productores locales y bajo estrictos controles de calidad.`;
 
-  const benefits = isOut
-    ? ['Producción diaria', 'Sin conservantes', 'Frescura garantizada']
-    : ['Producción diaria', 'Sin conservantes', 'Frescura garantizada'];
-
   return (
     <dialog
       ref={dialogRef}
@@ -85,14 +81,14 @@ export default function ProductModal({ product, open, onClose }: Props) {
         if (e.target === dialogRef.current) onClose();
       }}
       aria-labelledby="product-modal-title"
-      className="w-[min(56rem,92vw)] max-w-3xl overflow-hidden rounded-3xl bg-white p-0 shadow-cheese backdrop:bg-espresso-900/55"
+      className="w-[min(64rem,96vw)] max-w-5xl overflow-hidden rounded-3xl bg-white p-0 shadow-cheese backdrop:bg-espresso-900/55"
     >
       <div className="grid max-h-[90vh] grid-rows-[auto_1fr] overflow-hidden md:max-h-[85vh] md:grid-cols-[1.1fr_1fr] md:grid-rows-1">
-        <div className="relative aspect-[5/4] bg-cream-100 md:aspect-auto md:h-full">
+        <div className="relative aspect-5/4 overflow-hidden bg-cream-100 md:aspect-square">
           <img
             src={product.image_url}
             alt={product.name}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 m-auto h-full w-full max-h-full max-w-full object-contain"
           />
           <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-espresso-900 backdrop-blur">
             {product.category}
@@ -144,20 +140,6 @@ export default function ProductModal({ product, open, onClose }: Props) {
             </h3>
             <p className="mt-2 text-base leading-relaxed text-espresso-900">{longDescription}</p>
           </div>
-
-          <ul className="grid gap-2 sm:grid-cols-2">
-            {benefits.map((b) => (
-              <li
-                key={b}
-                className="flex items-center gap-2 rounded-2xl bg-meadow-50 px-3 py-2 text-sm text-meadow-700"
-              >
-                <span aria-hidden className="text-meadow-500">
-                  ✓
-                </span>
-                {b}
-              </li>
-            ))}
-          </ul>
 
           <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row">
             <button

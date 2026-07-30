@@ -56,7 +56,27 @@ const links = [
       </ul>
     </nav>
 
-    <a href="#productos" class="hidden md:inline-flex btn-primary"> Ver catálogo </a>
+    <div class="hidden items-center gap-1 md:flex">
+      <a href="#productos" class="btn-primary">Ver catálogo</a>
+      <a
+        href={`${import.meta.env.BASE_URL}/admin/`}
+        class="grid h-10 w-10 place-items-center rounded-full border border-espresso-900/15 bg-cream-50 text-espresso-700 transition hover:border-cheddar hover:bg-cheese-100 hover:text-espresso-900"
+        aria-label="Acceso para administradores"
+        title="Acceso administrador"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          class="h-4 w-4"
+        >
+          <rect x="4" y="9" width="12" height="8" rx="2"></rect>
+          <path d="M7 9V6a3 3 0 016 0v3" stroke-linecap="round"></path>
+        </svg>
+      </a>
+    </div>
 
     <details class="relative md:hidden">
       <summary
@@ -90,6 +110,26 @@ const links = [
           }
           <li class="mt-2">
             <a href="#productos" class="btn-primary w-full"> Ver catálogo </a>
+          </li>
+          <li class="mt-1">
+            <a
+              href={`${import.meta.env.BASE_URL}admin/`}
+              class="flex items-center justify-center gap-2 rounded-2xl border border-espresso-900/15 bg-cream-50 px-5 py-3 text-sm font-semibold text-espresso-900 transition hover:bg-cheese-100"
+              aria-label="Acceso para administradores"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                class="h-4 w-4"
+              >
+                <rect x="4" y="9" width="12" height="8" rx="2"></rect>
+                <path d="M7 9V6a3 3 0 016 0v3" stroke-linecap="round"></path>
+              </svg>
+              Acceso administrador
+            </a>
           </li>
         </ul>
       </nav>
