@@ -40,7 +40,7 @@ export default function AdminApp() {
   const redirectTo = useMemo(() => {
     if (typeof window === 'undefined') return '/admin/';
     const raw = import.meta.env.BASE_URL || '/';
-    const base = raw === '/' ? '' : raw.endsWith('/') ? raw : `${raw}/`;
+    const base = raw === '/' ? '/' : `${raw.replace(/\/$/, '')}/`;
     return `${window.location.origin}${base}admin/`;
   }, []);
 
