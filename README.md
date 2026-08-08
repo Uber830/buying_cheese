@@ -11,7 +11,7 @@ rendimiento, accesibilidad y SEO.
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-Sitio en producción: **<https://uber830.github.io/buying_cheese/>**
+Sitio en producción: **<https://buying-cheese.pages.dev>**
 
 ---
 
@@ -37,7 +37,7 @@ nvm use            # usa la versión de Node definida en .nvmrc
 npm install
 cp .env.example .env
 # editar .env con PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_ANON_KEY
-npm run dev        # http://localhost:4322/buying_cheese
+npm run dev        # http://localhost:4321/
 ```
 
 ---
@@ -52,6 +52,10 @@ PUBLIC_BASE_PATH=/buying_cheese
 PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
 ```
+
+> En **Cloudflare Pages** (producción) `PUBLIC_BASE_PATH` debe ser `/` para que
+> los assets se sirvan desde la raíz. El valor `/buying_cheese` es solo para
+> `npm run dev` local.
 
 Estas variables **se incrustan en el build** (prefijo `PUBLIC_`), por lo que el sitio
 sigue siendo 100 % estático en producción.
@@ -100,22 +104,26 @@ Hooks y seguridad:
 
 ## Despliegue
 
-El sitio se publica automáticamente en **GitHub Pages** cada `push` a `main`
-gracias al workflow `.github/workflows/deploy.yml` (Astro build → `actions/deploy-pages`).
+El sitio se publica en **Cloudflare Pages** desde `main`.
 
-### Configuración inicial del repositorio
+### Configuración del proyecto en Cloudflare Pages
 
-1. **Settings → Pages → Build and deployment**: source = _GitHub Actions_.
-2. **Settings → Secrets and variables → Actions**: crea las claves que el workflow
-   consume (si faltan, el build usa placeholders y el catálogo sale vacío):
-   - `PUBLIC_SUPABASE_URL`
-   - `PUBLIC_SUPABASE_ANON_KEY`
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- **Node version:** 22 o superior (compatible con `engines`)
 
-El sitio queda disponible en `https://<owner>.github.io/buying_cheese/`.
+### Variables de entorno
 
-> El sitio es 100 % estático, así que también funciona tal cual en Vercel, Netlify
-> o Cloudflare Pages: basta con apuntar el comando de build a `npm run build` y
-> el directorio de salida a `dist`.
+Define estas en *Settings → Environment variables* (Production y Preview):
+
+| Variable                  | Valor                                                |
+| ------------------------- | ---------------------------------------------------- |
+| `PUBLIC_SITE_URL`         | URL del sitio (ej. `https://buying-cheese.pages.dev`) |
+| `PUBLIC_BASE_PATH`        | `/` (raíz, no uses subpath)                          |
+| `PUBLIC_SUPABASE_URL`     | URL de tu proyecto Supabase                          |
+| `PUBLIC_SUPABASE_ANON_KEY`| Anon key de Supabase                                 |
+
+> Si en el build faltan las claves de Supabase, el catálogo sale vacío.
 
 ---
 

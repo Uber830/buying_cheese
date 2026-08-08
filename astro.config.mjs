@@ -4,8 +4,8 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const SITE = process.env.PUBLIC_SITE_URL || 'https://uber830.github.io/buying_cheese';
-const BASE = process.env.PUBLIC_BASE_PATH ?? '/buying_cheese';
+const SITE = process.env.PUBLIC_SITE_URL;
+const BASE = process.env.PUBLIC_BASE_PATH ?? '/';
 
 export default defineConfig({
   site: SITE,
