@@ -27,20 +27,62 @@ const ogImage = new URL(
   Astro.site ?? SITE.url,
 ).toString();
 
-const jsonLd = {
+const localBusinessLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}#business`,
   name: SITE.name,
-  url: SITE.url,
+  alternateName: SITE.alternateName,
   description: SITE.description,
+  url: SITE.url,
   telephone: SITE.phoneDisplay,
   email: SITE.email,
+  image: `${SITE.logoUrl}`,
+  logo: `${SITE.logoUrl}`,
+  priceRange: SITE.priceRange,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Calle 6a #3a-36',
     addressLocality: 'Mosquera',
     addressRegion: 'Cundinamarca',
     addressCountry: 'CO',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: SITE.geo.latitude,
+    longitude: SITE.geo.longitude,
+  },
+  openingHoursSpecification: SITE.openingHours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  areaServed: SITE.areaServed.map((a) => ({
+    '@type': a.type,
+    name: a.name,
+  })),
+  knowsAbout: [
+    'Quesos frescos',
+    'Queso campesino',
+    'Queso pera',
+    'Queso mozzarella',
+    'Yogurt',
+    'Kéfir',
+    'Cuajada',
+    'Lácteos',
+  ],
+  sameAs: [],
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}#website`,
+  url: SITE.url,
+  name: SITE.name,
+  inLanguage: SITE.locale,
+  publisher: { '@id': `${SITE.url}#business` },
 };
 ---
 
@@ -50,11 +92,19 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href={faviconHref} title="Quesos La Colina" />
+    <meta name="theme-color" content="#fff8e7" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} title={SITE.name} />
     <link rel="canonical" href={canonicalURL} />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={SITE.keywords.join(', ')} />
+    <meta name="author" content={SITE.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="geo.region" content="CO-CUN" />
+    <meta name="geo.placename" content="Mosquera, Cundinamarca" />
+    <meta name="geo.position" content={`${SITE.geo.latitude};${SITE.geo.longitude}`} />
+    <meta name="ICBM" content={`${SITE.geo.latitude}, ${SITE.geo.longitude}`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -76,7 +126,8 @@ const jsonLd = {
       href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessLd)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} is:inline />
   </head>
   <body>
     <a
@@ -105,3 +156,4 @@ const jsonLd = {
     </script>
   </body>
 </html>
+

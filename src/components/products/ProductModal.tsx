@@ -3,6 +3,33 @@ import type { Product } from '@/types/product';
 import { SITE, stockState } from '@/lib/site';
 import { addProduct, CART_EVENT } from '@/lib/cart';
 
+function productJsonLd(p: Product) {
+  const stock = stockState(p.stock);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    description: p.short_description,
+    image: p.image_url,
+    category: p.category,
+    sku: p.id,
+    brand: { '@type': 'Brand', name: SITE.name },
+    offers: {
+      '@type': 'Offer',
+      price: p.price ?? 0,
+      priceCurrency: SITE.currency,
+      availability:
+        stock === 'available'
+          ? 'https://schema.org/InStock'
+          : stock === 'out'
+            ? 'https://schema.org/OutOfStock'
+            : 'https://schema.org/PreOrder',
+      seller: { '@type': 'Organization', name: SITE.name },
+      url: typeof window !== 'undefined' ? window.location.href : SITE.url,
+    },
+  };
+}
+
 type Props = {
   product: Product;
   open: boolean;
@@ -60,6 +87,22 @@ export default function ProductModal({ product, open, onClose }: Props) {
       dlg.close();
     }
   }, [open, product.id]);
+
+  useEffect(() => {
+    if (!open) return;
+    const id = `product-jsonld-${product.id}`;
+    let script = document.getElementById(id) as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = id;
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(productJsonLd(product));
+    return () => {
+      script?.remove();
+    };
+  }, [open, product]);
 
   const handleAdd = () => {
     if (isOut) return;
