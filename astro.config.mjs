@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const SITE = process.env.PUBLIC_SITE_URL;
+const SITE = process.env.PUBLIC_SITE_URL || 'https://lacteoslacolina.com';
 const BASE = process.env.PUBLIC_BASE_PATH ?? '/';
 
 export default defineConfig({

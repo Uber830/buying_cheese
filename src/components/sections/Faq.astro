@@ -1,0 +1,84 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionTitle from '@/components/ui/SectionTitle.astro';
+import { SITE } from '@/lib/site';
+
+const faqs = [
+  {
+    q: `¿Dónde queda ${SITE.name}?`,
+    a: `Estamos en ${SITE.address}. Atendemos de lunes a sábado de 7:00 a.m. a 7:00 p.m. y domingos de 8:00 a.m. a 1:00 p.m. Puedes pedir a domicilio o recoger en el punto.`,
+  },
+  {
+    q: '¿A qué zonas hacen domicilio?',
+    a: 'Hacemos domicilios en Mosquera, Madrid, Funza y el occidente de Bogotá (Fontibón, Engativá, zonas cercanas a la calle 13). El envío es gratis para pedidos superiores a $80.000.',
+  },
+  {
+    q: '¿Cómo hago un pedido?',
+    a: 'Agrega los productos al carrito en este sitio y al final dale a “Enviar por WhatsApp”. Te respondemos confirmando disponibilidad, precio total y horario de entrega.',
+  },
+  {
+    q: '¿Qué productos lácteos manejan?',
+    a: 'Quesos frescos (campesino, pera, mozzarella, doble crema, costeño), yogur natural y de sabores, kéfir con probióticos, cuajada y suero costeño. Trabajamos marcas locales del altiplano cundiboyacense y referencias nacionales.',
+  },
+  {
+    q: '¿Los quesos son pasteurizados?',
+    a: 'Sí. Trabajamos con proveedores que utilizan leche pasteurizada y cultivo láctico. La frescura es diaria: cada lote llega y se entrega el mismo día o el siguiente.',
+  },
+  {
+    q: '¿Tienen productos sin lactosa o veganos?',
+    a: 'Por ahora nuestro catálogo es 100% lácteo tradicional. Si necesitas una referencia específica (sin lactosa, deslactosada, etc.), escríbenos por WhatsApp y te avisamos cuándo la conseguimos.',
+  },
+  {
+    q: '¿Aceptan pagos con tarjeta o transferencia?',
+    a: 'Sí: efectivo contra entrega, Nequi, Daviplata, Bancolombia y transferencia. Para pedidos a domicilio confirmamos el método al enviar el resumen por WhatsApp.',
+  },
+  {
+    q: '¿Pueden surtir un restaurante o cafetería?',
+    a: 'Sí. Atendemos negocios gastronómicos en la sabana con precios mayoristas y entregas programadas. Escríbenos al WhatsApp con el volumen estimado y el tipo de queso que necesitas.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section id="preguntas" class="bg-cream-50/60 py-20">
+  <Container>
+    <SectionTitle
+      eyebrow="Preguntas frecuentes"
+      title={`Todo sobre ${SITE.name}`}
+      subtitle="Respondemos lo que más nos preguntan sobre pedidos, entregas y productos."
+    />
+
+    <div class="mx-auto mt-12 grid max-w-3xl gap-3">
+      {
+        faqs.map((f, i) => (
+          <details
+            class="group rounded-2xl border border-espresso-900/10 bg-white p-5 shadow-card open:shadow-cheese"
+            open={i === 0}
+          >
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-display text-lg font-bold text-espresso-900">
+              <span>{f.q}</span>
+              <span
+                aria-hidden="true"
+                class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-cheese-100 text-cheddar transition group-open:rotate-45"
+              >
+                +
+              </span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-espresso-700">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />

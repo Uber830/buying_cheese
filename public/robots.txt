@@ -3,4 +3,3 @@ Allow: /
 Disallow: /admin/
 
 Sitemap: https://lacteoslacolina.com/sitemap-index.xml
-Sitemap: https://buying-cheese.pages.dev/sitemap-index.xml
