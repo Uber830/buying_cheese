@@ -9,7 +9,7 @@ import { SITE } from '@/lib/site';
     <SectionTitle
       eyebrow="Visítanos"
       title="Te esperamos en nuestra tienda"
-      subtitle="Pasa por nuestro punto en Mosquera, Cundinamarca. Te atenderemos personalmente para ayudarte a elegir tus productos favoritos."
+      subtitle="Pasa por nuestro punto en Funza, Cundinamarca. Te atenderemos personalmente para ayudarte a elegir tus productos favoritos."
     />
 
     <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
@@ -32,6 +32,12 @@ import { SITE } from '@/lib/site';
             class="mt-2 block text-sm text-cream-100/90 transition hover:text-cheese-300"
           >
             Cel. {SITE.phoneDisplay}
+          </a>
+          <a
+            href={`tel:${SITE.phone2Raw}`}
+            class="mt-1 block text-sm text-cream-100/90 transition hover:text-cheese-300"
+          >
+            Cel. {SITE.phone2Display}
           </a>
 
           <h3
@@ -63,7 +69,7 @@ import { SITE } from '@/lib/site';
           rel="noopener noreferrer"
           class="btn-secondary w-full justify-center"
         >
-          <span aria-hidden="true">📍</span>
+          <span aria-hidden="true">🗺️</span>
           Abrir en Google Maps
         </a>
       </aside>
