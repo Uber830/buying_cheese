@@ -26,9 +26,11 @@ export const SITE = {
   locale: 'es_CO',
   phoneDisplay: '+57 312 435 2828',
   phoneRaw: '+573124352828',
-  email: 'contacto@quesoslacolina.com',
-  address: 'Calle 6a #3a-36, Mosquera, Cundinamarca \u2013 Colombia',
-  addressShort: 'Calle 6a #3a-36, Mosquera',
+  phone2Display: '+57 322 782 4054',
+  phone2Raw: '+573227824054',
+  email: 'lacteoslacolina23@gmail.com',
+  address: 'Calle 6a #3a-36, Funza, Cundinamarca \u2013 Colombia',
+  addressShort: 'Calle 6a #3a-36, Funza, Cundinamarca',
   geo: { latitude: 4.7059, longitude: -74.2306 },
   openingHours: [
     {
