@@ -24,13 +24,13 @@ export const SITE = {
   ],
   url: import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321',
   locale: 'es_CO',
-  phoneDisplay: '+57 312 435 2828',
-  phoneRaw: '+573124352828',
-  phone2Display: '+57 322 782 4054',
-  phone2Raw: '+573227824054',
+  phoneDisplay: '+57 322 782 4054',
+  phoneRaw: '+573227824054',
+  phone2Display: '+57 312 435 2828',
+  phone2Raw: '+573124352828',
   email: 'lacteoslacolina23@gmail.com',
-  address: 'Calle 6a #3a-36, Funza, Cundinamarca \u2013 Colombia',
-  addressShort: 'Calle 6a #3a-36, Funza, Cundinamarca',
+  address: 'Carrera 6 #7a-48, Funza, Cundinamarca \u2013 Colombia',
+  addressShort: 'Carrera 6 #7a-48, Funza, Cundinamarca',
   geo: { latitude: 4.7059, longitude: -74.2306 },
   openingHours: [
     {
@@ -56,9 +56,9 @@ export const SITE = {
   currency: 'COP',
   logoUrl: `${SUPABASE_STORAGE}/logo-gpt-new.webp`,
   mapsEmbedUrl:
-    'https://www.google.com/maps?q=Calle+6a+%233a-36+Mosquera+Cundinamarca+Colombia&output=embed',
+    'https://www.google.com/maps?q=Carrera+6+%237a-48+Mosquera+Cundinamarca+Colombia&output=embed',
   mapsLink:
-    'https://www.google.com/maps/search/?api=1&query=Calle+6a+%233a-36+Mosquera+Cundinamarca+Colombia',
+    'https://www.google.com/maps/search/?api=1&query=Carrera+6+%237a-48+Mosquera+Cundinamarca+Colombia',
 } as const;
 
 export const UNIT_LABELS = {
