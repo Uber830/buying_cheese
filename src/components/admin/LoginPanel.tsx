@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { signInWithGoogle } from '@/lib/admin';
+import { useEffect, useState } from 'react';
+import { readAuthErrorFromUrl, signInWithGoogle } from '@/lib/admin';
 
 type Props = {
   redirectTo: string;
@@ -11,6 +11,13 @@ type Props = {
 export default function LoginPanel({ redirectTo, status, email, onSignOut }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  // Mensaje que Supabase devuelve al volver del flujo de Google (por ejemplo,
+  // cuando el hook rechaza el correo por no estar en la allowlist).
+  useEffect(() => {
+    setNotice(readAuthErrorFromUrl());
+  }, []);
 
   const handleLogin = async () => {
     setBusy(true);
@@ -80,7 +87,7 @@ export default function LoginPanel({ redirectTo, status, email, onSignOut }: Pro
           />
           <path
             fill="#4CAF50"
-            d="M24 44c5.1 0 9.8-2 13.3-5.2l-6.1-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"
+            d="M24 44c5.1 0 9.8-2 13.3-5.2l-6.1-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 17.2 44 24 44z"
           />
           <path
             fill="#1976D2"
@@ -90,13 +97,17 @@ export default function LoginPanel({ redirectTo, status, email, onSignOut }: Pro
         {busy ? 'Abriendo Google…' : 'Continuar con Google'}
       </button>
 
+      {notice && (
+        <p className="mt-4 rounded-2xl bg-amber-50 px-3 py-2 text-sm text-amber-800">{notice}</p>
+      )}
+
       {error && (
         <p className="mt-4 rounded-2xl bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
       )}
 
       <p className="mt-6 text-xs text-espresso-700/70">
-        Solo correos autorizados pueden acceder. Si no puedes entrar, contacta al administrador del
-        sitio.
+        Solo se admite acceso con Google y únicamente para correos autorizados. Si no puedes entrar,
+        contacta al administrador del sitio.
       </p>
     </div>
   );
