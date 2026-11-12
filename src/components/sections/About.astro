@@ -36,13 +36,14 @@ const images = [
 
     <div class="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
       <div class="relative">
-        <div aria-hidden="true" class="absolute -inset-3 z-0 rotate-2 rounded-5xl bg-cheese-300">
-        </div>
+        <div
+          aria-hidden="true"
+          class="absolute -inset-3 z-0 rotate-2 rounded-5xl bg-cheese-300"
+        ></div>
         <div
           aria-hidden="true"
           class="absolute -inset-3 z-0 -rotate-2 rounded-5xl border-2 border-espresso-900/10 bg-cream-50"
-        >
-        </div>
+        ></div>
 
         <div
           class="about-carousel relative aspect-4/5 overflow-hidden rounded-4xl bg-cream-50 shadow-card"
@@ -54,26 +55,24 @@ const images = [
             aria-roledescription="carrusel"
             aria-label="Imágenes de nuestra finca y ganado"
           >
-            {
-              images.map((img, i) => (
-                <li
-                  class={`about-carousel__slide absolute inset-0 ${i === 0 ? 'is-active' : ''}`}
-                  aria-hidden={i !== 0}
-                  aria-label={`${i + 1} de ${images.length}`}
-                  aria-roledescription="slide"
-                  data-carousel-slide={i}
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading={i === 0 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    draggable="false"
-                    class="h-full w-full select-none object-cover"
-                  />
-                </li>
-              ))
-            }
+            {images.map((img, i) => (
+              <li
+                class={`about-carousel__slide absolute inset-0 ${i === 0 ? 'is-active' : ''}`}
+                aria-hidden={i !== 0}
+                aria-label={`${i + 1} de ${images.length}`}
+                aria-roledescription="slide"
+                data-carousel-slide={i}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  draggable="false"
+                  class="h-full w-full select-none object-cover"
+                />
+              </li>
+            ))}
           </ul>
 
           <button
@@ -116,17 +115,15 @@ const images = [
           </button>
 
           <div class="about-carousel__dots absolute inset-x-0 bottom-3 flex justify-center gap-2">
-            {
-              images.map((_, i) => (
-                <button
-                  type="button"
-                  class={`about-carousel__dot h-2 rounded-full transition-all duration-200 ${i === 0 ? 'w-6 bg-cheddar' : 'w-2 bg-white/70'}`}
-                  aria-label={`Ir a la imagen ${i + 1}`}
-                  aria-current={i === 0 ? 'true' : 'false'}
-                  data-carousel-dot={i}
-                />
-              ))
-            }
+            {images.map((_, i) => (
+              <button
+                type="button"
+                class={`about-carousel__dot h-2 rounded-full transition-all duration-200 ${i === 0 ? 'w-6 bg-cheddar' : 'w-2 bg-white/70'}`}
+                aria-label={`Ir a la imagen ${i + 1}`}
+                aria-current={i === 0 ? 'true' : 'false'}
+                data-carousel-dot={i}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -137,40 +134,38 @@ const images = [
           style="--reveal-delay: 0ms"
           class="text-balance text-lg leading-relaxed"
         >
-          En <strong class="text-espresso-900">Quesos La Colina</strong> creemos que un buen queso nace
-          de una buena leche y de una <strong>sabana generosa</strong>. Por eso seleccionamos
-          cuidadosamente a los proveedores y a marcas reconocidas a nivel
-          nacional.
+          En <strong class="text-espresso-900">Quesos La Colina</strong> creemos que un buen queso
+          nace de una buena leche y de una <strong>sabana generosa</strong>. Por eso seleccionamos
+          cuidadosamente a los proveedores y a marcas reconocidas a nivel nacional.
         </p>
         <p
           data-reveal="fade-up"
           style="--reveal-delay: 100ms"
           class="text-balance text-lg leading-relaxed"
         >
-          Nuestra fórmula se basa en la honestidad y cumplimiento con nuestros clientes, ofreciendo productos frescos y de calidad, con un servicio amable y cercano.
+          Nuestra fórmula se basa en la honestidad y cumplimiento con nuestros clientes, ofreciendo
+          productos frescos y de calidad, con un servicio amable y cercano.
         </p>
 
         <dl class="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {
-            stats.map((s, i) => (
-              <div
-                data-reveal="fade-up"
-                style={`--reveal-delay: ${i * 80}ms`}
-                class="rounded-2xl bg-white p-4 text-center shadow-card"
+          {stats.map((s, i) => (
+            <div
+              data-reveal="fade-up"
+              style={`--reveal-delay: ${i * 80}ms`}
+              class="rounded-2xl bg-white p-4 text-center shadow-card"
+            >
+              <dt
+                class="font-display text-3xl font-extrabold text-cheddar"
+                data-counter
+                data-counter-value={s.value}
+                data-counter-prefix={s.prefix}
+                data-counter-suffix={s.suffix}
               >
-                <dt
-                  class="font-display text-3xl font-extrabold text-cheddar"
-                  data-counter
-                  data-counter-value={s.value}
-                  data-counter-prefix={s.prefix}
-                  data-counter-suffix={s.suffix}
-                >
-                  {s.prefix}0{s.suffix}
-                </dt>
-                <dd class="mt-1 text-xs font-medium text-espresso-700">{s.label}</dd>
-              </div>
-            ))
-          }
+                {s.prefix}0{s.suffix}
+              </dt>
+              <dd class="mt-1 text-xs font-medium text-espresso-700">{s.label}</dd>
+            </div>
+          ))}
         </dl>
       </div>
     </div>

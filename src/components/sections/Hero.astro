@@ -11,13 +11,11 @@ const featured = await getFeaturedProducts();
   <div
     aria-hidden="true"
     class="pointer-events-none absolute -top-32 right-[-10%] h-144 w-xl rounded-full bg-cheese-300/40 blur-3xl"
-  >
-  </div>
+  ></div>
   <div
     aria-hidden="true"
     class="pointer-events-none absolute -bottom-40 left-[-10%] h-120 w-120 rounded-full bg-cheese-200/60 blur-3xl"
-  >
-  </div>
+  ></div>
 
   <Container class="relative grid items-center gap-12 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24">
     <div>
@@ -45,8 +43,8 @@ const featured = await getFeaturedProducts();
         style="--reveal-delay: 220ms"
         class="mt-6 max-w-xl text-balance text-lg leading-relaxed text-espresso-700"
       >
-        Quesos, yogures, kéfir y cuajada distribuidos en <strong>Mosquera, Cundinamarca</strong> y sus alrededores.
-        Empresa familiar con marcas locales y nacionales con domicilio a
+        Quesos, yogures, kéfir y cuajada distribuidos en <strong>Mosquera, Cundinamarca</strong> y
+        sus alrededores. Empresa familiar con marcas locales y nacionales con domicilio a
         <strong>Mosquera, Madrid, Funza y occidente de Bogotá</strong>.
       </p>
 
@@ -90,29 +88,27 @@ const featured = await getFeaturedProducts();
         style="--reveal-delay: 440ms"
         class="mt-10 inline-flex items-center gap-3 rounded-2xl border border-cheddar/20 bg-cheese-100/70 px-4 py-3 text-sm text-espresso-900"
       >
-        <span aria-hidden="true" class="text-xl">🚚</span>
+        <span aria-hidden="true" class="text-xl">
+          🚚
+        </span>
         <span>
           <strong>Domicilio gratis</strong> en pedidos superiores a{' '}
           <strong>
-            {
-              new Intl.NumberFormat('es-CO', {
-                style: 'currency',
-                currency: SITE.currency,
-                maximumFractionDigits: 0,
-              }).format(SITE.freeShippingFromCop)
-            }
+            {new Intl.NumberFormat('es-CO', {
+              style: 'currency',
+              currency: SITE.currency,
+              maximumFractionDigits: 0,
+            }).format(SITE.freeShippingFromCop)}
           </strong>
         </span>
       </div>
     </div>
 
-    {
-      featured.length > 0 && (
-        <div class="flex justify-center md:justify-end">
-          <FeaturedProductsClient client:load initial={featured} />
-        </div>
-      )
-    }
+    {featured.length > 0 && (
+      <div class="flex justify-center md:justify-end">
+        <FeaturedProductsClient client:load initial={featured} />
+      </div>
+    )}
   </Container>
 </section>
 
