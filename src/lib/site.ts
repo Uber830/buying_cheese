@@ -1,6 +1,13 @@
 const SUPABASE_STORAGE =
   'https://aadvjqgohwqoiwvezawh.supabase.co/storage/v1/object/public/products';
 
+// Fuente única de verdad de la dirección. Todo el sitio se deriva de aquí.
+const ADDRESS_STREET = 'Carrera 6 #7-48';
+const ADDRESS_CITY = 'Funza';
+const ADDRESS_REGION = 'Cundinamarca';
+const ADDRESS = `${ADDRESS_STREET}, ${ADDRESS_CITY}, ${ADDRESS_REGION}`;
+const ADDRESS_QUERY = encodeURIComponent(`${ADDRESS}, Colombia`);
+
 export const SITE = {
   name: 'Lácteos La Colina',
   shortName: 'La Colina',
@@ -22,15 +29,18 @@ export const SITE = {
     'queso pera',
     'mozzarella',
   ],
-  url: import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321',
+  url: import.meta.env.PUBLIC_SITE_URL || 'https://lacteoslacolina.com',
   locale: 'es_CO',
   phoneDisplay: '+57 322 782 4054',
   phoneRaw: '+573227824054',
   phone2Display: '+57 312 435 2828',
   phone2Raw: '+573124352828',
   email: 'lacteoslacolina23@gmail.com',
-  address: 'Carrera 6 #7-48, Funza, Cundinamarca \u2013 Colombia',
-  addressShort: 'Carrera 6 #7-48, Funza, Cundinamarca',
+  address: `${ADDRESS} \u2013 Colombia`,
+  addressShort: ADDRESS,
+  streetAddress: ADDRESS_STREET,
+  city: ADDRESS_CITY,
+  region: ADDRESS_REGION,
   geo: { latitude: 4.7059, longitude: -74.2306 },
   openingHours: [
     {
@@ -55,10 +65,8 @@ export const SITE = {
   freeShippingFromCop: 80000,
   currency: 'COP',
   logoUrl: `${SUPABASE_STORAGE}/logo-gpt-new.webp`,
-  mapsEmbedUrl:
-    'https://www.google.com/maps?q=Carrera+6+%237-48+Mosquera+Cundinamarca+Colombia&output=embed',
-  mapsLink:
-    'https://www.google.com/maps/search/?api=1&query=Carrera+6+%237-48+Mosquera+Cundinamarca+Colombia',
+  mapsEmbedUrl: `https://www.google.com/maps?q=${ADDRESS_QUERY}&output=embed`,
+  mapsLink: `https://www.google.com/maps/search/?api=1&query=${ADDRESS_QUERY}`,
 } as const;
 
 export const UNIT_LABELS = {

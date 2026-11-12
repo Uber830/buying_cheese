@@ -19,7 +19,7 @@ Sitio en producción: **<https://buying-cheese.pages.dev>**
 
 - **Catálogo público** con filtros por categoría, modal de detalle, pedido por WhatsApp.
 - **Hero con productos destacados** que se actualiza en vivo desde Supabase.
-- **Panel de administración** (`/admin`) protegido por Google OAuth con allowlist:
+- **Panel de administración** (`/admin`) con acceso **exclusivamente por Google OAuth** y allowlist de correos:
   - CRUD de productos (crear, editar, eliminar) con upload de imágenes a Supabase Storage.
   - Toggle de destacado (Hero) y visibilidad por producto.
   - Slug autogenerado a partir del nombre, categorías con autocompletar.
@@ -80,10 +80,34 @@ Tablas principales:
 
 Hooks y seguridad:
 
-- **`before_user_created_hook`** — rechaza registros cuyo correo no esté en
-  `admin_users` (`is_active = true`). Cubre email/password y OAuth (Google).
+- **`before_user_created_hook`** — rechaza el alta de cualquier correo que no
+  esté en `admin_users` (`is_active = true`). La función ya está creada en la
+  base de datos; falta activarla en _Authentication → Hooks_ del dashboard.
+- **`is_admin()`** — valida la allowlist en el servidor: sin una fila activa en
+  `admin_users` no hay escrituras, aunque se acceda directamente a la API.
+- **El panel (navegador)** — además de la allowlist, exige que la sesión se
+  haya iniciado con Google (`app_metadata.provider = 'google'`).
 - **RLS en `storage.objects`** (bucket `products`): INSERT/UPDATE/DELETE solo
   para administradores.
+
+### Acceso al panel: Google + allowlist
+
+El panel `/admin` **solo** admite cuentas de Google que estén en la allowlist.
+Hay dos capas: el hook de Supabase bloquea el alta de usuarios no autorizados
+y las políticas RLS rechazan cualquier escritura que no venga de un
+administrador. El panel en el navegador también exige que la sesión sea de
+Google.
+
+Configuración en el Dashboard de Supabase (una sola vez):
+
+1. **Authentication → Hooks** → activa _Before User Created_ y selecciona
+   `public.before_user_created_hook`.
+2. **Authentication → Providers → Email** → **desactiva** el proveedor de
+   correo, dejando Google como único método de acceso.
+3. **Authentication → URL Configuration** → deja únicamente las URLs del sitio
+   (por ejemplo `https://lacteoslacolina.com/admin/`).
+4. **Database → Table Editor → `admin_users`** → inserta los correos
+   autorizados (`is_active = true`).
 
 ---
 
@@ -114,14 +138,14 @@ El sitio se publica en **Cloudflare Pages** desde `main`.
 
 ### Variables de entorno
 
-Define estas en *Settings → Environment variables* (Production y Preview):
+Define estas en _Settings → Environment variables_ (Production y Preview):
 
-| Variable                  | Valor                                                |
-| ------------------------- | ---------------------------------------------------- |
-| `PUBLIC_SITE_URL`         | URL del sitio (ej. `https://buying-cheese.pages.dev`) |
-| `PUBLIC_BASE_PATH`        | `/` (raíz, no uses subpath)                          |
-| `PUBLIC_SUPABASE_URL`     | URL de tu proyecto Supabase                          |
-| `PUBLIC_SUPABASE_ANON_KEY`| Anon key de Supabase                                 |
+| Variable                   | Valor                                                 |
+| -------------------------- | ----------------------------------------------------- |
+| `PUBLIC_SITE_URL`          | URL del sitio (ej. `https://buying-cheese.pages.dev`) |
+| `PUBLIC_BASE_PATH`         | `/` (raíz, no uses subpath)                           |
+| `PUBLIC_SUPABASE_URL`      | URL de tu proyecto Supabase                           |
+| `PUBLIC_SUPABASE_ANON_KEY` | Anon key de Supabase                                  |
 
 > Si en el build faltan las claves de Supabase, el catálogo sale vacío.
 

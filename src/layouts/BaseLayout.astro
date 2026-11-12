@@ -41,9 +41,9 @@ const localBusinessLd = {
   priceRange: SITE.priceRange,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Calle 6a #3a-36',
-    addressLocality: 'Mosquera',
-    addressRegion: 'Cundinamarca',
+    streetAddress: SITE.streetAddress,
+    addressLocality: SITE.city,
+    addressRegion: SITE.region,
     addressCountry: 'CO',
   },
   geo: {
@@ -101,7 +101,7 @@ const websiteLd = {
     <meta name="author" content={SITE.name} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="geo.region" content="CO-CUN" />
-    <meta name="geo.placename" content="Mosquera, Cundinamarca" />
+    <meta name="geo.placename" content={`${SITE.city}, ${SITE.region}`} />
     <meta name="geo.position" content={`${SITE.geo.latitude};${SITE.geo.longitude}`} />
     <meta name="ICBM" content={`${SITE.geo.latitude}, ${SITE.geo.longitude}`} />
 
@@ -155,4 +155,3 @@ const websiteLd = {
     </script>
   </body>
 </html>
-
